@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useClerk } from "@clerk/nextjs";
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Modal } from "@/components/ui/modal";
@@ -19,6 +20,7 @@ const formSchema = z.object({
 
 export const StoreModal = () => {
     const storeModal = useStoreModal();
+    const { signOut } = useClerk();
 
     const [loading, setLoading] = useState(false);
 
@@ -85,6 +87,9 @@ export const StoreModal = () => {
                                 >
                                     Continue
                                 </Button>
+                            </div>
+                            <div className="pt-6 flex justify-end w-full">
+                                <a href="#" onClick={() => signOut()} className="text-red-500 underline">Logout</a>
                             </div>
                         </form>
                     </Form>
